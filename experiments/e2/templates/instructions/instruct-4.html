@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+    <div class="main_div">
+        <h1>Instructions</h1>
+
+        <hr>
+
+        <p>You have been matched up with a group of <span id = 'gen-size'></span> other MTurk workers. To help you make a decision, you will see their decisions on each area before viewing it yourself.</p>
+        <hr>
+
+        <button type="button" class="grey-button" id='previous_button' onClick="reverse();">Previous</button>
+        <button type="button" class="grey-button" id='next_button' onClick="advance();">Next</button>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+        const generation_size = +sessionStorage.getItem('generation_size');
+        $('#gen-size').html(generation_size);
+
+        function advance(){
+            $('.grey-button').prop('disabled',true);
+            dallinger.goToPage('instructions/instruct-ready')
+        };
+
+        function reverse(){
+            $('.grey-button').prop('disabled',true);
+            dallinger.goToPage('instructions/instruct-3')
+        };
+        
+    </script>
+    {% endblock %}

@@ -1,0 +1,4 @@
+dallinger==9.0.0
+numpy
+pytz
+pandas

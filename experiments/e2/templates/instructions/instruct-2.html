@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+    <div id='instruct-2-wrapper' class='main_div initially-hidden'>
+        <h1>Instructions</h1>
+        <hr>
+        <p id='story-instructions'></p>
+        
+        <p id =>Here is an example of what you might see:</p>
+        <div id = 'image-wrapper' class="centering_div">
+            <img id="stimulus_image" width="100%" alt=""/>
+        </div>
+        &nbsp;
+        <p id ='image-paragraph'></p>
+        <hr>
+        <button type="button" class="grey-button" id='next_button' onClick="advance();">Next</button>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+        const payout_condition = sessionStorage.getItem('payout_condition');
+        
+        if (payout_condition=="blue"){
+            if (Math.random()<0.5){
+                $('#stimulus_image').attr('src',"/static/images/more-green.png");
+                $('#image-paragraph').html('In this area, there are more grass (green) dots than sapphire (blue) dots.');
+            } else{
+                $('#stimulus_image').attr('src',"/static/images/more-blue.png");
+                $('#image-paragraph').html('In this area, there are more sapphire (blue) dots than grass (green) dots.')
+            }
+            $('#story-instructions').html('You work for an imaginary company looking for blue sapphires (valuable gem stones) in a grassy field. '+
+            'You will observe areas briefly and decide if the area has more sapphires '+
+            'or more grass. An area has more sapphires if there are more blue dots than green, and more grass if there are '+
+            'more green dots than blue. <span class = "bold-text">Note that the size of the dots does not matter, only the number. </span> '+
+            "Don't try to count the dots — they will appear too briefly for that. "+
+            'Instead, you should take your best guess.');
+        } else { 
+            if (Math.random()<0.5){
+                $('#stimulus_image').attr('src',"/static/images/more-green.png");
+                $('#image-paragraph').html('In this area, there are more emerald (green) dots than water (blue) dots.')
+            } else{
+                $('#stimulus_image').attr('src',"/static/images/more-blue.png");
+                $('#image-paragraph').html('In this area, there are more water (blue) dots than emerald (green) dots.')
+            }
+            $('#story-instructions').html('You work for an imaginary company looking for green emeralds (valuable gem stones) in a river. '+
+            'You will observe areas briefly and decide if the area has more emeralds '+
+            'or more water. An area has more emeralds if there are more green dots than blue, and more water if there are '+
+            'more blue dots than green. <span class = "bold-text">Note that the size of the dots does not matter, only the number. </span> '+
+            "Don't try to count the dots — they will appear too briefly for that. "+
+            'Instead, you should take your best guess.');
+        } 
+
+        $('#instruct-2-wrapper').css('visibility','visible');
+
+        function advance(){
+            $('#next_button').prop('disabled',true);
+            dallinger.goToPage('instructions/instruct-3')
+        };
+
+    </script>
+    {% endblock %}

@@ -1,0 +1,30 @@
+[Experiment]
+mode = live
+auto_recruit = true
+loglevel = 0
+
+[MTurk]
+title = (New) Psychology Experiment: Judge Blue and Green Dots ($1.25 average pay inc. bonus, < 8 mins, no mobile please)
+description = Judge dot displays
+keywords = Psychology, decision, dots, game
+base_payment = .65
+0duration = 0.5
+us_only = true
+contact_email_on_error = wdt@princeton.edu
+organization_name = Princeton University
+browser_exclude_rule = MSIE, mobile, tablet
+qualification_blacklist = UWSPFPILOT, UWPFWPEXPONE
+assign_qualifications = true
+approve_requirement = 95
+group_name = UWPFWPEXPONE
+
+[Database]
+database_url = postgresql://postgres@localhost/dallinger
+database_size = standard-4
+
+[Server]
+dyno_type = performance-m
+num_dynos_web = 3
+num_dynos_worker = 3
+host = 0.0.0.0
+clock_on = false

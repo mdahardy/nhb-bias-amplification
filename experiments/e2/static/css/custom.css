@@ -1,0 +1,334 @@
+/* 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+GENERAL STYLING - MULTIPLE PAGES
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+.grey-button {
+  padding:10px;
+  padding-left:20px;
+  padding-right:20px;
+  border-radius:5px;
+  font-size:20px;
+  color:white;
+  background:#5c5c5c;
+  border-style: solid;
+  box-shadow: none;
+  border:none;
+  outline:none;
+}
+
+.grey-button:focus {
+  outline:none;
+}
+
+.grey-button:focus-visible {
+  outline:2px solid black;
+}
+
+.bold-text{
+  font-weight:600;
+}
+.initially-hidden{
+  visibility:hidden;
+}
+
+/* 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+CONSENT PAGE
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+.consent-button{
+  margin-bottom:20px;
+}
+
+/* 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+INSTRUCT-2
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+#image-wrapper{
+  width:450px;
+  height:257px;
+  background:#f1f1f1;
+}
+
+/* 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+PREGAME-QUESTIONS
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
+#questions-div{
+  display:none;
+}
+
+#questions-div select{
+  padding:5px;
+  margin-top:3px;
+}
+
+.question-word{
+  font-weight:600;
+}
+
+.block-center{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.header-align-center{
+  text-align:center;
+}
+
+#instructions-div-failure{
+  margin-top:100px;
+  display:none;
+}
+
+#instructions-div-success{
+  margin-top:200px;
+  display:none;
+}
+
+#question-5-wrapper{
+  display:none;
+}
+
+/* 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+EXPERIMENT.HTML
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
+.topResult{
+  font-size:20px;
+}
+
+#round-info{
+  display:none;
+}
+
+.center_div{
+  display:none;
+}
+
+#more-green{
+  background:#009500;
+  border-color: #009500;
+  font-size:16px;
+  color:white;
+  width:160px;
+  border-radius:5px;
+  border:none;
+  padding:5px;
+  outline:none;
+  margin:0 5px;
+}
+
+#more-green:focus{
+  outline:none;
+}
+
+#more-green:focus-visible{
+  outline:2px solid #5c0258;
+}
+
+#more-blue{
+  background:#007ef8;
+  border-color: #007ef8;
+  font-size:16px;
+  color:white;
+  width:160px;
+  border-radius:5px;
+  border:none;
+  padding:5px;
+  outline:none;
+  margin:0 5px;
+}
+
+#more-blue:focus{
+  outline:none;
+}
+
+#more-blue:focus-visible{
+  outline:2px solid #004891;
+}
+
+.button-wrapper{
+  display:none;
+  margin-top:50px;
+}
+
+#continue_button{
+  display:block;
+}
+
+#continue_social{
+  display:none;
+}
+
+.large-continue {
+  background:#5c5c5c;
+  border:none;
+  outline:none;
+  width:320px;
+  text-align:center;
+  color:white;
+  padding: 10px 15px;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius:5px;
+}
+
+.large-continue:focus{
+  outline:none;
+}
+
+.large-continue:focus-visible{
+  outline:2px solid black;
+}
+
+.computer_number{
+  margin-bottom:10px;
+}
+
+.computer_number span {
+  font-family: Monaco, monospace;
+  line-height: 100%;
+  background-color: #eee;
+  padding: .2em;
+  letter-spacing: -.05em;
+  word-break: normal
+}
+
+
+#container {
+  width:785px;
+  height:150px;
+  margin: 0 auto;
+  display:none;
+  text-align:center;
+}
+
+#description {
+    font-size:25px;
+}
+
+.icon-paragraph {
+  margin-top:30px;
+  font-size:40px;
+}
+
+.person-chose-green{
+  color:#009500;
+  padding-left:8px;
+}
+
+.person-chose-blue{
+  color:#007ef8;
+  padding-left:8px;
+}
+
+.person-chose-remainder{
+  color:#9e9e9e;
+  padding-left:8px;
+}
+
+#social-info {
+  margin-top:15px;
+  text-align:center;
+  width:475px;
+  height:100px;
+  margin: 0 auto;
+  display:none;
+}
+
+#social-text {
+  margin-top:10px;
+  font-size:20px;
+}
+
+.experiment_info {
+    font-size:19px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin-top:25px;
+}
+
+.slider:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #3071a9;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+#slider-question{
+  text-align:center;
+  font-size:19px;
+}
+
+select:focus{
+  outline:1px solid black;
+}
+
+#result{
+  text-align:center;
+  font-size:19px;
+}
+
+#social_reminder{
+    display:none;
+    margin:0 auto;
+    width:540px;
+    margin-top:95px;
+}
+
+#instructions{
+  margin-top:30px;
+  font-size:21px;
+}
+
+#reminder_icons{
+  font-size:26px;
+}
+
+#button-div{
+  display:none;
+  justify-content:center;
+}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+    <div class="main_div">
+            <div class="right_div">
+                <p class="trial_info_text" id ='round_info'>Round <span id="trial-number">1</span> of <span id="total-trial-number"></span></p>
+                <!-- <p class="trial_info_text" id = 'total_earnings'></p> -->
+                <p></p>
+                <br>
+            </div>
+            <div class = "outcome"></div>
+            <div class = "button-wrapper"><button  type="button" class="large-continue" id = "continue_button">Continue</button></div>
+        <div class="center_div" id='modifiable-div'>
+                <div id ="social_reminder"></div>
+                <p class="trial_text" id="instructions"></p>
+                <div id='button-div'>
+                <button id="more-blue" type="button" class="chose-blue"></button>
+                <button id="more-green" type="button" class="chose-green"></button>
+                </div>
+                <br>
+                <div id='container'>
+                </div>
+                <div id='social-info'>
+                  <div id="social-text">Please wait to view the area</div>
+                </div>
+                <button type="button" class="large-continue" id = "continue_social">View area</button>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type='module' src='https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js'></script>
+    <script nomodule='' src='https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js'></script>
+    <script src="/static/scripts/raphael-min.js" type="text/javascript"> </script>
+    <script src="/static/scripts/experiment.js" type="text/javascript"> </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.3/seedrandom.min.js"></script>
+{% endblock %}

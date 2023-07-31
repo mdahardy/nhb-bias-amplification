@@ -1,0 +1,231 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' type='text/css' href='/static/css/custom.css'/>  
+{% endblock %}
+
+{% block body %}
+<div class="main_div" id="questions-div">
+      <h1>Pre-experiment quiz</h1>
+      <hr>
+      <form>
+        <div id='question-1' class = 'quiz-question'>
+            <div>On every round of the experiment, your task is to:</div>
+            <div><select id="q1" name="q1"></select></div>
+        </div>
+        <div id='question-2' class='quiz-question'>
+            <br>
+            <div id = 'question-text-2'>Which type of dots gives you a bonus?</div>
+              <div><select id="q2" name="q2"></select></div>
+        </div>
+        <div id='question-3' class = 'quiz-question'>
+            <br>
+            <div id='dot-type-question'>Does the bonus for a certain color of dot pay if your decision is wrong?</div>
+            <div>
+                <select id="q3" name="q3">
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                    <option value="3" SELECTED>None of these options</option>
+                </select>
+            </div>
+        </div>
+        <div id='question-4' class = 'quiz-question'>
+          <br>
+        </div>
+        <hr>
+      </form>
+      <button type="button" id="submit-pregame-questions" class="grey-button" onclick="submitQuestions()">Submit</button>
+</div>
+
+  <!-- Instructions Div - pass the experiment -->
+  <div id="instructions-div-success" class="instructions main_div">
+    <h4 class = 'header-align-center'>All of your answers were correct!</h4>
+    <br>
+    <br>
+    <br>
+    <button type="button" class="grey-button block-center" id="instructions-next" onClick="beginExperiment()">Begin experiment &raquo;</button>
+  </div>
+
+  <!-- Instructions Div -->
+  <div id="instructions-div-failure" class="instructions main_div">
+
+    <h4>Here is some important information to help you get the highest bonus possible:</h4>
+    
+    <hr>
+
+    <div id='question-2-wrapper' class='correction-text'>
+      <span id="instructions-text-2"></span>
+      <br>
+    </div>
+    <div id='question-3-wrapper' class='correction-text'>
+      <br>
+      <span id="instructions-text-3"></span>
+      <br>
+    </div>
+    <div id='question-4-wrapper' class='correction-text'>
+      <br>
+      <span id="instructions-text-4"></span>
+      <br>
+    </div>
+    <div id='question-5-wrapper' class='correction-text'>
+      <br>
+      <span id="instructions-text-5"></span>
+      <br>
+    </div>
+    <hr>
+    <button type="button" class="grey-button" id="instructions-fail" onClick="showQuestions()">Try again &raquo;</button>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+
+  let spinner;
+  let num_failed = 0;
+  const max_num_failed = 3;
+
+  function setUpGeneralHTML(){
+    const payout_condition = sessionStorage.getItem('payout_condition');
+    const generation = +sessionStorage.getItem('generation');
+    const is_asocial = sessionStorage.getItem('is_asocial')=='true';
+
+    if (payout_condition=='blue'){
+      $('#q1').html('<option value="1">Judge whether there are more sapphire dots or grass dots</option>'+
+        '<option value="2">Judge how many grass dots are in the area</option>'+
+        '<option value="3">Judge how many sapphire dots are in the area</option>'+
+        '<option value="4" SELECTED>None of these options</option>');
+      $('#q2').html('<option value="2">Grass</option>'+
+        '<option value="1">Sapphire</option>'+
+        '<option value="3" SELECTED>None of these options</option>');
+      $('#instructions-text-2').html('1). On every round, you must judge whether there are more sapphire (blue) dots or more grass (green) dots in the area.');
+      $('#instructions-text-3').html('2). You will get a bonus for every sapphire dot in the area.');
+      $('#instructions-text-4').html('3). You will get this bonus for sapphire dots regardless of whether your decision is correct.');
+    } else if (payout_condition=='green'){
+      $('#q1').html('<option value="2">Judge how many emerald dots are in the area</option>'+
+        '<option value="3">Judge how many water dots are in the area</option>'+
+        '<option value="4" SELECTED>None of these options</option>' +
+        '<option value="1">Judge whether there are more emerald dots or more water dots</option>');
+      $('#q2').html('<option value="1">Emerald</option>'+
+        '<option value="2">Water</option>'+
+        '<option value="3" SELECTED>None of these options</option>')
+      $('#instructions-text-2').html('1). On every round, you must judge whether there are more emerald (green) dots or more water (blue) dots in the area.');
+      $('#instructions-text-3').html('2). You will get a bonus for every emerald dot in the area.');
+      $('#instructions-text-4').html('3). You will get this bonus for emerald dots regardless of whether your decision is correct.');
+    } else if (payout_condition=='no-utility'){
+      const random_index = Math.round(Math.random()<0.5)
+      const [first_color,second_color] = [['green','blue'][random_index],['green','blue'][Math.abs(1-random_index)]];
+      const [first_gem,second_gem] = [['emerald','sapphire'][random_index],['emerald','sapphire'][Math.abs(1-random_index)]];
+      $('#question-3-wrapper').css('display','none')
+      $('#question-4-wrapper').css('display','none')
+      $('#q1').html('<option value="1">Judge whether there are more '+first_gem+' ('+first_color+') dots or more '+second_gem+' ('+second_color+') dots</option>'+
+        '<option value="2">Judge how many '+first_gem+' ('+first_color+') dots dots are in the areaa</option>'+
+        '<option value="3">Judge how many '+second_gem+' ('+second_color+') dots dots are in the area</option>'+
+        '<option value="4" SELECTED>None of these options</option>')
+      $('#question-2').css('display','none')
+      $('#question-3').css('display','none')
+      $('#question-2').html('')
+      $('#question-3').html('')
+      $('#instructions-text-2').html('1). On every round, you must judge whether there are more '+first_gem+' ('+first_color+') dots or more '+second_gem+' ('+second_color+ ') dots in the area.')
+      $('#instructions-text-3').css('display','none')
+      $('#instructions-text-4').html('display','none')
+    }
+    if (is_asocial){
+      $('#question-4').css('display','none');
+    } else{
+      $('#question-5-wrapper').css('display','block');
+      $('#question-4').html('<br><div>'+
+        'Before viewing an area, what information will you get?'+
+        '</div>'+
+        '<div>'+
+          '<select id="q4" name="q4">'+
+            "<option value='2'>A set of participants' decisions on a random area</option>"+
+            '<option value="3">A previous decision you made</option>'+
+            "<option value='1'>A set of participants' decisions on the same area</option>"+
+            '<option value="5" SELECTED>None of these options</option>'+
+            '</select></div>')
+      $('#instructions-text-5').html('4). Before viewing an area, you will see the decisions made by a set of participants on the same area as the one you will see.')
+    }
+  }
+
+  function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+  }
+
+  function setUp(){
+    setUpGeneralHTML();
+    showQuestions();
+  }
+
+  function beginExperiment() {
+    sessionStorage.setItem('curr_practice',false);
+    const green_left = sessionStorage.getItem('green_left')=='true';
+    dallinger.goToPage('experiment');
+  }
+
+  function showQuestions() {
+    $('button').blur();
+    $("#questions-div").css('display','block');
+    $("#instructions-div-failure").css('display','none');
+  }
+
+  function submitQuestions() {
+    spinner = dallinger.BusyForm()
+    spinner.freeze([])
+    // populate dictionary of resopnses
+    const serialized_form = $("form").serializeArray();
+    let form_dict = {};
+    serialized_form.forEach(entry => {
+      form_dict[entry.name] = entry.value;
+    });
+    // post as info to dallimger
+    my_node_id = sessionStorage.getItem("node_id")
+    dallinger.createInfo(my_node_id, {info_type:'comprehensiontest', contents:JSON.stringify(form_dict)})
+    .done(function (resp) {
+        updateFeedback(resp)
+    })
+    .fail(function (err) {
+        spinner.unfreeze();  
+        dallinger.allowExit();        
+        dallinger.goToPage('questionnaire');
+    })
+  }
+
+  function checkForFailedWords(){
+    if ($( "#select-words-0 option:selected" ).text() !== word_dict[words[0]][0]) return true;
+    if ($( "#select-words-1 option:selected" ).text() !== word_dict[words[1]][0]) return true;
+    return false;
+  }
+
+  function bootParticipant(){
+    dallinger.allowExit();        
+    dallinger.goToPage('questionnaire');
+  }
+  
+  function updateFeedback(resp) {
+    $('button').blur();
+    $("#questions-div").css('display','none');
+    if (+resp.info.property1 === 1){
+      spinner.unfreeze();
+      $("#instructions-div-success").css('display','block');
+    } else {
+      num_failed++;
+      if (num_failed >= max_num_failed){
+        bootParticipant();
+      } else{
+        spinner.unfreeze();
+        $("#instructions-div-failure").css('display','block');
+      }
+    }
+  }
+
+  $(document).ready(setUp);
+
+  </script>
+{% endblock %}

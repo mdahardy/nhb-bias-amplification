@@ -1,0 +1,7 @@
+-e git://github.com/billdthompson/Dallinger.git@clock-supervision-dev#egg=dallinger
+numpy
+pysnooper
+pytz
+pandas
+numpyro
+pip-tools<=5.5.0

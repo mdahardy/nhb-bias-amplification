@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+    <div class="main_div" id='ready-div' style='visibility: hidden;'>
+        <h1>Instructions</h1>
+        <hr>
+
+        <p id ='instructions-p'>
+        </p>
+
+        <button type="button" class="grey-button" id='next_button' onClick="advance();">Begin</button>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+                                                
+    const payout_condition = sessionStorage.getItem('payout_condition');
+    const num_practice = +sessionStorage.getItem('num_practice');
+    const num_test = +sessionStorage.getItem('num_test');
+    const dot_bonus = +sessionStorage.getItem('dot_bonus');
+    const accuracy_bonus = +sessionStorage.getItem('accuracy_bonus');
+    const max_bonus = (( (dot_bonus*50/1000) +(accuracy_bonus/1000)) * num_test).toFixed(2);
+
+    if (payout_condition=='blue'){
+    $('#instructions-p').html('You will observe '+String(num_practice+num_test) + ' areas in total. '+
+        'Your bonus will depend on how many areas you judge correctly and how many sapphires (blue dots) are in each. '+
+        'The first '+ String(num_practice) + ' areas are for practice and will not count towards your bonus. &nbsp;')
+    } else if (payout_condition=='green') {
+        $('#instructions-p').html('You will observe '+String(num_practice+num_test) + ' areas in total. '+
+        'Your bonus will depend on how many areas you judge correctly and how many emeralds (green dots) are in each. '+
+            'The first '+ String(num_practice) + ' areas are for practice and will not count towards your bonus. &nbsp;')
+    } else {
+        $('#instructions-p').html('You will observe '+String(num_practice+num_test) + ' areas in total. '+
+        'Your bonus will depend on how many areas you judge correctly. The first '+ String(num_practice) + ' areas are for practice and will not count towards your bonus. &nbsp;')
+    }
+    $('#ready-div').css('visibility','visible');
+
+    function advance(){
+        $('#next_button').prop('disabled',true);
+        sessionStorage.setItem('curr_practice',true);
+        dallinger.goToPage('experiment');
+    };
+
+</script>
+{% endblock %}

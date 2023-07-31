@@ -1,0 +1,3 @@
+dallinger==5.1.0
+numpy
+pysnooper

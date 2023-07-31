@@ -1,0 +1,85 @@
+{% extends "base/consent.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+   <div class="main_div">
+       <noscript>
+           <h1>Warning: Javascript is not working on your browser</h1>
+           <p>The study will not work unless Javascript is enabled on your browser.</p>
+           <p>Please enable Javascript then refresh this page.<p>
+       </noscript>
+       <h1>We need your consent to proceed</h1>
+       <hr>
+       <div class="consent_div text-justify">
+
+            <h4>Title of Research: Computational Cognitive Science</h4>
+            <h4>Principal Investigator: Thomas Griffiths</h4>
+            <h4>Principal Investigator's Department: Psychology</h4>
+            
+            <hr>
+           <p>You are being invited to take part in a research study. Before you decide to participate in this study, it is important that you understand why the research is being done and what it will involve. Please take the time to read the following information carefully. Please ask the researcher if there is anything that is not clear or if you need more information.</p>
+
+            <p><h3>Purpose of this research:</h3></p>
+
+            <p>This project aims to collect data that can be used to evaluate formal accounts of causal learning, categorization, and language learning and to track how knowledge about these areas is transformed when passed from person to person.</p>
+
+            <p><h3>Study procedures:</h3></p>
+
+            <p>You will be presented with some information (e.g., a written narrative, hypothetical scenarios, or scientific data) and will then be asked to make one or more judgments about that information, or decisions based upon it. In some cases you will be asked to provide explanations or justifications for your responses, typically in the form of a short paragraph. The task will not involve deception or emotionally disturbing materials - just simple questions about categories, causal relationships, and languages.</p>
+            <p>The task you will perform will be one or more of the following: 1. Being shown a set of members of a category, and then asked to indicate which other objects are likely to belong to the category. 2. Being presented a sequence of pictures or sounds, and being asked to predict the next item in the sequence. 3. Being told a set of words in a language, and then making judgments about whether other words belong to the language. 4. Being shown statistical information about the interaction of causes and effects, and then making judgments about the causal relationships involved. 5. Observing a set of events or reading a description, and then evaluating the probability of other events or statements.</p>
+            <p>The answers you provide in the task may be used as stimuli for future participants. However, data that would identify you will not be shared with other participants.</p>
+
+            <p>Your total expected time commitment for this study is <b>10 minutes</b></p>
+
+            <p><h3>Benefits and Risks:</h3></p>
+            <p>There are no direct benefits to you as a participant; however, by furthering our understanding of human cognition, this research will benefit society by helping understand explore the evolutionary causes and consequences of human behavior.</p>
+
+            <p>Risks associated with participation in this study are minimal. You may feel slight discomfort answering some questions, but you may refrain from answering any questions that make you uncomfortable and may withdraw your participation at any time even after completing the experiment without penalty.</p>
+
+            <p><h3>Confidentiality:</h3></p>
+
+            <p>We will not be asking for any personally identifying information, and we will handle responses as confidentially as possible. Your name, or your Worker IDs will never be tied to your responses on this survey. Data containing anything that might be personally identifiable (e.g. Worker IDs) will be encrypted on transfer and storage. We will be keeping data collected as part of this experiment indefinitely. This anonymized data (containing neither Worker IDs nor IP addresses) may be shared with the scientific community.</p>
+
+            <p>Complete confidentiality of responses cannot be guaranteed because officials of the U.S. Army Human Research Protections Office are permitted by law to inspect the records obtained in this study to insure compliance with laws and regulations covering experiments using human subjects. Your data will not be associated with your name directly in any way. However, while the study is running it will be associated with your worker ID which someone could potentially use to personally identify you. Once the study is complete, we will replace your worker ID with a random string. These records may be shared with other researchers, but will not contain your worker ID or any other personal information. Responses you make within the study may be shown to other participants, but these responses will not be linked to your personally identifiable information in any way.</p>
+
+            <p><h3>Compensation:</h3></p>
+
+            <p>For your participation, you will receive a base payment of $1.20, with the opportunity to earn an additional bonus of about $1.20. If you are on Prolific and for any reason you do not complete the study (e.g. technical difficulties, or a desire to stop), we will only be able to pay you if you send an email through Prolific, or by emailing the researcher, Bill Thompson, at billdthompson@berkeley.edu.  If you have any questions about the study, feel free to contact Bill Thompson or the Principal Investigator, Thomas Griffiths, at tomg@princeton.edu.</p>
+
+            <p><h3>Who to contact with questions:</h3></p>
+
+            <ol type="1">
+                <li>Principal Investigator: <br>Dr. Thomas Griffiths <br>tomg@princeton.edu</li>
+                <li>If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the Investigator, please contact the Institutional Review Board at:
+                    <br>Assistant Director, Research Integrity and Assurance
+                    <br>Phone: (609) 258-8543
+                    <br>irb@princeton.edu
+                </li>
+            </ol>
+
+            <hr>
+           <p>I understand the information that was presented and that:</p>
+           <ol type="A">
+                <li>My participation is voluntary, and I may withdraw my consent and discontinue participation in the project at any time.  My refusal to participate will not result in any penalty.</li>
+                <li>I do not waive any legal rights or release Princeton University, its agents, or you from liability for negligence.</li>
+            </ol>
+
+           <h4>I hereby give my consent to be the subject of your research.</h4>
+           <br>
+           {% block consent_button %}
+           <button type="button" class="grey-button consent-button" onClick="window.location='/instructions/instruct-1?hit_id={{ hit_id }}&assignment_id={{ assignment_id }}&worker_id={{ worker_id }}&mode={{ mode }}';"
+           style="float: left;">I agree
+           {% endblock consent_button %}
+           {% block reject_button %}
+           <button type="button" class="grey-button consent-button" onClick="self.close();" style="float: right;">No thanks (exit HIT)
+            &nbsp;
+            &nbsp;
+           </button>
+           {% endblock reject_button %}
+       </div>
+   </div>
+
+{% endblock %}

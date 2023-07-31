@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="../static/css/custom.css">
+{% endblock %}
+
+{% block body %}
+    <div id='instruct-3-wrapper' class = 'main_div initially-hidden'>
+        <h1>Instructions</h1>
+
+        <hr>
+
+        <div id ='story-instructions'>
+        </div>
+    
+
+        <hr>
+        <button type="button" class="grey-button" id='previous_button' onClick="reverse();">Previous</button>
+        <button type="button" class="grey-button" id='next_button' onClick="advance();">Next</button>
+        
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+
+        const payout_condition = sessionStorage.getItem('payout_condition');
+        const num_trials = +sessionStorage.getItem('num_trials');
+        const is_asocial = sessionStorage.getItem('is_asocial')=='true';
+        const generation = +sessionStorage.getItem('generation');
+
+        if (payout_condition=='blue'){
+            $('#story-instructions').html('<p>'+
+                'On each round, you will get a 50 point bonus if you are correct in judging the area as '+
+                'containing more blue sapphire dots or more green grass dots. </p>' +
+                '<p id="utility-information">In addition to this accuracy bonus, <span class = "bold-text">you will be paid 1 point for every sapphire (blue dot) '+
+                'in the area</span>, regardless of the size of the sapphire. Because the sapphires will always be collected, you will <span class = "bold-text">always</span> get this bonus, '+
+                'whether your decision is right or wrong. </p>'+
+                '<p id="terminal-info">At the end of the experiment, your points will be paid to you as a bonus with 10 points equal to one cent. </p>')
+        } else if (payout_condition=='green') {    
+            $('#story-instructions').html('<p>'+
+                'On each round, you will get a 50 point bonus if you are correct in judging the area as '+
+                'containing more green emerald dots or more blue water dots. </p>' +
+                '<p id="utility-information">In addition to this accuracy bonus, <span class = "bold-text">you will be paid 1 point for every emerald (green dot) '+
+                'in the area</span>, regardless of the size of the emerald. Because the emeralds will always be collected, you will <span class = "bold-text">always</span> get this bonus, '+
+                'whether your decision is right or wrong.</p>' +
+                '<p id="terminal-info">At the end of the experiment, your points will be paid to you as a bonus with 10 points equal to one cent. </p>')
+        } else {
+            const random_index = Math.round(Math.random()<0.5)
+            const [first_color,second_color] = [['green','blue'][random_index],['green','blue'][Math.abs(1-random_index)]];
+            const [first_gem,second_gem] = [['emerald','sapphire'][random_index],['emerald','sapphire'][Math.abs(1-random_index)]];
+            const first_string = `${first_color} ${first_gem}`;
+            const second_string = `${second_color} ${second_gem}`;
+            $('#story-instructions').html('<p>On each round, you will get a 50 point bonus if you are correct in judging the image as '+
+                'containing more '+first_string+' dots or more '+second_string+' dots.</p>'+
+                '<p id="utility-information">In addition to these accuracy bonuses, you will be paid an additional '+String(Math.round(num_trials*50))+' point '+
+                'bonus for completing the experiment.</p> '+
+                '<p id="terminal-info">At the end of the experiment, your points will be paid to you as a bonus with 10 points equal to one cent. </p>')
+        }
+                    
+        $('#instruct-3-wrapper').css('visibility','visible')
+
+        function advance(){
+            $('.grey-button').prop('disabled',true);
+            const next_page = (is_asocial) ? 'instructions/instruct-ready' : 'instructions/instruct-4';
+            dallinger.goToPage(next_page)
+        }
+
+        function reverse(){
+            $('.grey-button').prop('disabled',true);
+            dallinger.goToPage('instructions/instruct-2')
+        }
+
+    </script>
+    {% endblock %}
